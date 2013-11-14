@@ -30,8 +30,13 @@ BikeDataManager.BikeItemView = Marionette.ItemView.extend({
 });
 
 //set the collection's view.
-BikeDataManager.BikesView = Marionette.CollectionView.extend({
-	itemView: BikeDataManager.BikeItemView
+BikeDataManager.BikesView = Marionette.CompositeView.extend({
+	className: 'rides-wrap',
+	template: '#rides-template',
+	itemView: BikeDataManager.BikeItemView,
+
+	//where to append the html
+	itemViewContainer: '.ride-info'
 });
 
 //initialize the page.
