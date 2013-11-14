@@ -9,10 +9,32 @@
 	<!-- <link rel="stylesheet" href="assets/css/normalize.css"> -->
 	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/base-min.css">
 	<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.3.0/pure-nr-min.css">
+	<link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
 
+	<h1> Bike Tracker</h1>
 	<div id="info"></div>
+
+	<script type="text/template" id="ride-template">
+		<dl>
+			<dt> Date:</dt>
+			<dd> <%= date %> </dd>
+			<dt> Location:</dt>
+			<dd> <%= location %> </dd>
+			<dt> Distance: </dt>
+			<dd> <%= distance %> </dd>
+			<dt> Time </dt>
+			<dd> <%= time %> </dd>
+			<dt> Average Speed: </dt>
+			<dd> <%= avgSpeed %> </dd>
+			<dt> Max Speed: </dt>
+			<dd> <%= maxSpeed %> </dd>
+			<dt> Average Cadence </dt>
+			<dd> <%= avgCadence %> </dd>
+		</dl>
+	</script>
+
 
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-1.10.2.min.js"><\/script>')</script>

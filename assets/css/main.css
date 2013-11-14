@@ -1,0 +1,33 @@
+/* line 1, ../sass/main.scss */
+body {
+  color: #777;
+  margin: 0 auto;
+  width: 1000px;
+}
+
+/* line 7, ../sass/main.scss */
+h1 {
+  text-align: center;
+}
+
+/* line 11, ../sass/main.scss */
+.ride-info {
+  border: 1px solid lightgrey;
+  border-radius: 4px;
+  padding: 10px 20px;
+  overflow: auto;
+}
+/* line 16, ../sass/main.scss */
+.ride-info dl {
+  overflow: auto;
+}
+/* line 19, ../sass/main.scss */
+.ride-info dt, .ride-info dd {
+  float: left;
+  width: 25%;
+}
+/* line 23, ../sass/main.scss */
+.ride-info dt:nth-child(odd) {
+  clear: left;
+  margin-bottom: 10px;
+}
