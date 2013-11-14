@@ -1,11 +1,12 @@
 var BikeDataManager = new Backbone.Marionette.Application();
 
-// regions correspond to different areas of the application
+//set up main region on the page
 BikeDataManager.addRegions({
-	mainRegion: '#info'
+	mainRegion: '#mainContent'
 });
 
- Bike = Backbone.Model.extend({
+//set the model - this is one bike ride's data
+BikeDataManager.Bike = Backbone.Model.extend({
 	defaults: {
 		date: "",
 		distance: "",
@@ -17,51 +18,28 @@ BikeDataManager.addRegions({
 	}
 });
 
- Bikes = Backbone.Collection.extend({
-	model: Bike
-});
-
- BikeView = Backbone.Marionette.ItemView.extend({
+//set the model's view. (the definition list)
+BikeDataManager.BikeView = Backbone.Marionette.ItemView.extend({
 	template: '#ride-template',
-	tagName: 'dl' 
+	tagName: 'dl'
 });
 
-BikeListView = Backbone.Marionette.CompositeView.extend({
-	template: '#rides-template',
-	itemView: BikeView,
-
-	itemViewContainer: '.ride-info'
-});
-
-BikeDataManager.addInitializer(function(options) {
-	var bikeListView = new BikeListView({
-		collection: options
+//initialize the page.
+BikeDataManager.addInitializer(function(){
+	var bike = new BikeDataManager.Bike({
+		"date": "5/14",
+		"distance": "10.53",
+		"time": "52:45",
+		"avgSpeed": "11.98",
+		"maxSpeed": "18.34",
+		"avgCadence": "51",
+		"location": ""
 	});
 
-	BikeDataManager.mainRegion.show(bikeListView);
-});
+	var bikeView = new BikeDataManager.BikeView({
+		model: bike
+	});
 
-$(document).ready(function() {
-	var options = [
-			{
-				"date": "5/14",
-				"distance": "10.53",
-				"time": "52:45",
-				"avgSpeed": "11.98",
-				"maxSpeed": "18.34",
-				"avgCadence": "51",
-				"location": ""
-			},
-			{
-				"date": "5/25",
-				"distance": "29.29",
-				"time": "2:29:54",
-				"avgSpeed": "11.72",
-				"maxSpeed": "24.25",
-				"avgCadence": "55",
-				"location": "Riley's Lock"			
-			}];
-
-	var bikes = new Bikes(options);
-	BikeDataManager.start(bikes);
+	//show the main region of the app
+	BikeDataManager.mainRegion.show(bikeView);
 });
