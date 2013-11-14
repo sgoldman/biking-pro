@@ -16,8 +16,11 @@
 	<h1> Bike Tracker</h1>
 	<div id="info"></div>
 
+	<script type="text/template" id="rides-template">
+		<div class="ride-info"></div>
+	</script>
+
 	<script type="text/template" id="ride-template">
-		<dl>
 			<dt> Date:</dt>
 			<dd> <%= date %> </dd>
 			<dt> Location:</dt>
@@ -32,7 +35,6 @@
 			<dd> <%= maxSpeed %> </dd>
 			<dt> Average Cadence </dt>
 			<dd> <%= avgCadence %> </dd>
-		</dl>
 	</script>
 
 
