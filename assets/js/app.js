@@ -41,28 +41,23 @@ BikeDataManager.BikesView = Marionette.CompositeView.extend({
 
 //initialize the page.
 BikeDataManager.addInitializer(function(){
-	//set a collection of data.
-	var bikes = new BikeDataManager.BikeCollection([
-			{
-			"date": "5/14",
-			"distance": "10.53",
-			"time": "52:45",
-			"avgSpeed": "11.98",
-			"maxSpeed": "18.34",
-			"avgCadence": "51",
-			"location": ""
-		},
-		{
-			"date": "5/25",
-			"distance": "29.29",
-			"time": "2:29:54",
-			"avgSpeed": "11.72",
-			"maxSpeed": "24.25",
-			"avgCadence": "55",
-			"location": "Riley's Lock"			
-		}
-	]);
+	//fetch the data
+	$.ajax({
+		url: 'assets/data/bikeData.json'
+	}).done(function(data) {
+		BikeDataManager.bikeData = data.bikeData;
 
+		//trigger that the data has been fetched
+		BikeDataManager.vent.trigger('data:fetched');
+
+	});
+
+});
+
+//show the views when the ajax call is finished!
+BikeDataManager.vent.on('data:fetched', function() {
+	
+	var bikes = new BikeDataManager.BikeCollection(BikeDataManager.bikeData);
 	var bikesView = new BikeDataManager.BikesView({
 		collection: bikes //pass a collection to the BikesView -- which is a collection view.
 	});
