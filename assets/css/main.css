@@ -31,3 +31,9 @@ h1 {
   clear: left;
   margin-bottom: 10px;
 }
+
+/* line 30, ../sass/main.scss */
+.pure-form input[type=date] {
+  color: #777;
+  width: 18.2%;
+}
