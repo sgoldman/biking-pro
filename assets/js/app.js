@@ -51,11 +51,13 @@ BikeDataManager.layout = Marionette.Layout.extend({
 		});
 
 		console.log(formData)
-		BikeDataManager.bikeData.push(formData);
+		if ( !jQuery.isEmptyObject(formData) ) {
+			BikeDataManager.bikeData.push(formData);
 
-		console.log(BikeDataManager.bikeData)
+			console.log(BikeDataManager.bikeData)
 
-		BikeDataManager.bikesCollection.add(new BikeDataManager.Bike(formData));
+			BikeDataManager.bikesCollection.add(new BikeDataManager.Bike(formData));
+		}
 
 	}
 });
