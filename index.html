@@ -22,45 +22,45 @@
 			<form id="addBikeInfo" action="" class="pure-form pure-form-aligned">
 				<div class="pure-control-group">
 					<label for="tDate"> Date: </label>
-					<input type="date" placeholder="Date" id="tDate" />
+					<input type="date" placeholder="Date" id="date" name="tDate" />
 				</div>
 
 				<div class="pure-control-group">		
 					<label for="tDistance"> Distance: </label>
-					<input type="text" placeholder="12.23" id="tDistance" />
+					<input type="text" placeholder="12.23" id="distance" name="tDistance" />
 				</div>
 
 				<div class="pure-control-group">
 					<label for="tTime"> Time: </label>
-					<input type="text" placeholder="20:53" id="tTime" />
+					<input type="text" placeholder="20:53" id="time" name="tTime" />
 				</div>
 
 				<div class="pure-control-group">
 					<label for="tAvgSpeed"> Average Speed: </label>
-					<input type="text" placeholder="12.15" id="tAvgSpeed" />
+					<input type="text" placeholder="12.15" id="avgSpeed" name="tAvgSpeed" />
 				</div>
 
 				<div class="pure-control-group">
 					<label for="tMaxSpeed"> Max Speed: </label>
-					<input type="text" placeholder="24.23" id="tMaxSpeed" />
+					<input type="text" placeholder="24.23" id="maxSpeed" name="tMaxSpeed" />
 				</div>
 
 				<div class="pure-control-group">
 					<label for="tAvgCadence"> Average Cadence </label>
-					<input type="text" placeholder="51" id="tAvgCadence" />
+					<input type="text" placeholder="51" id="avgCadence" name="tAvgCadence" />
 				</div>
 
 				<div class="pure-control-group">
 					<label for="tLocation"> Location: </label>
-					<input type="text" placeholder="Custis" id="tLocation" />
+					<input type="text" placeholder="Custis" id="location" name="tLocation" />
 				</div>
 
 				<div class="pure-controls">
-					<button type="submit" class="pure-button pure-button-secondary"> Add Data </button>
+					<button class="pure-button pure-button-secondary" id="addData"> Add Data </button>
 				</div>
 			</form>
 		</div>
-		
+
 		<div id="graph">I will be a graph.</div>
 		<div id="infoContainer"></div>
 	</script>
