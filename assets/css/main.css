@@ -11,23 +11,23 @@ h1 {
 }
 
 /* line 11, ../sass/main.scss */
-.ride-info {
+.ride-wrap {
   border: 1px solid lightgrey;
   border-radius: 4px;
   padding: 10px 20px;
   overflow: auto;
 }
 /* line 16, ../sass/main.scss */
-.ride-info dl {
+.ride-wrap dl {
   overflow: auto;
 }
 /* line 19, ../sass/main.scss */
-.ride-info dt, .ride-info dd {
+.ride-wrap dt, .ride-wrap dd {
   float: left;
   width: 25%;
 }
 /* line 23, ../sass/main.scss */
-.ride-info dt:nth-child(odd) {
+.ride-wrap dt:nth-child(odd) {
   clear: left;
   margin-bottom: 10px;
 }

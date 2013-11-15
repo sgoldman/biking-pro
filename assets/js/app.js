@@ -8,6 +8,7 @@ BikeDataManager.addRegions({
 //set the model - this is one bike ride's data
 BikeDataManager.Bike = Backbone.Model.extend({
 	defaults: {
+		id: "",
 		date: "",
 		distance: "",
 		time: "",
@@ -41,7 +42,7 @@ BikeDataManager.layout = Marionette.Layout.extend({
 		e.preventDefault();
 
 		var formData = {};
-		console.log($('#addBikeInfo').find('input'))
+		
 		$('#addBikeInfo').find('input').each(function(i, el) {
 
 			//iterate all of the input elements and set the formData if not empty			
@@ -50,8 +51,8 @@ BikeDataManager.layout = Marionette.Layout.extend({
 			}
 		});
 
-		console.log(formData)
 		if ( !jQuery.isEmptyObject(formData) ) {
+
 			BikeDataManager.bikeData.push(formData);
 
 			console.log(BikeDataManager.bikeData)
@@ -65,11 +66,29 @@ BikeDataManager.layout = Marionette.Layout.extend({
 //set the model's view. (the definition list)
 BikeDataManager.BikeItemView = Marionette.ItemView.extend({
 	template: '#ride-template',
-	tagName: 'dl'
+	className: 'ride-wrap'
+});
+
 // List of Bike Dates View
 BikeDataManager.BikeListView = Marionette.ItemView.extend({
 	template: '#single-line-template',
 	tagName: 'ul',
+
+	events: {
+		'click .specific-ride' : 'showRideInfo'
+	},
+
+	showRideInfo: function(e) {
+		e.preventDefault();
+		var id = $(e.currentTarget).data('id'),
+			item = BikeDataManager.bikesCollection.get(id),
+
+			bikeView = new BikeDataManager.BikeItemView({
+				model: item //pass a collection to the BikesView -- which is a collection view.
+			});
+
+		BikeDataManager.bikeLayout.info.show(bikeView);
+		
 	}
 });
 
@@ -80,7 +99,13 @@ BikeDataManager.BikesView = Marionette.CompositeView.extend({
 	itemView: BikeDataManager.BikeItemView,
 
 	//where to append the html
-	itemViewContainer: '.ride-info'
+	itemViewContainer: '.ride-info',
+
+	initialize: function(item) {
+		console.log(item)
+	}
+});
+
 //set the bike dates view
 BikeDataManager.BikesListView = Marionette.CompositeView.extend({
 	template: '#single-line-wrap-template',
@@ -100,7 +125,7 @@ BikeDataManager.addInitializer(function(){
 		url: 'assets/data/bikeData.json'
 	}).done(function(data) {
 		BikeDataManager.bikeData = data.bikeData;
-
+		console.log(data.bikeData)
 		//trigger that the data has been fetched
 		BikeDataManager.vent.trigger('data:fetched');
 
