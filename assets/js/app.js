@@ -53,11 +53,17 @@ BikeDataManager.layout = Marionette.Layout.extend({
 
 		if ( !jQuery.isEmptyObject(formData) ) {
 
+			//add a unique id to grab the detail view later.
+			formData['id'] = BikeDataManager.collectionLength;
+
+			//add it to the local data
 			BikeDataManager.bikeData.push(formData);
 
 			console.log(BikeDataManager.bikeData)
-
+			//add the new data to the collection, instantiating a new model.
 			BikeDataManager.bikesCollection.add(new BikeDataManager.Bike(formData));
+
+			BikeDataManager.collectionLength++;
 		}
 
 	}
@@ -99,11 +105,7 @@ BikeDataManager.BikesView = Marionette.CompositeView.extend({
 	itemView: BikeDataManager.BikeItemView,
 
 	//where to append the html
-	itemViewContainer: '.ride-info',
-
-	initialize: function(item) {
-		console.log(item)
-	}
+	itemViewContainer: '.ride-info'
 });
 
 //set the bike dates view
@@ -143,6 +145,8 @@ BikeDataManager.vent.on('data:fetched', function() {
 	// });
 
 	BikeDataManager.bikesCollection = new BikeDataManager.BikeCollection(BikeDataManager.bikeData);
+	BikeDataManager.collectionLength = BikeDataManager.bikesCollection.length;
+
 	console.log(BikeDataManager.bikesCollection)
 	var bikesListView = new BikeDataManager.BikesListView({
 		collection: BikeDataManager.bikesCollection //pass a collection to the BikesView -- which is a collection view.
