@@ -5,17 +5,6 @@ BikeDataManager.addRegions({
 	mainRegion: '#mainContent'
 });
 
-//set up page layouts.
-BikeDataManager.layout = Marionette.Layout.extend({
-	template: "#bike-layout",
-
-	regions: {
-		form: '#newBikeData',
-		graph: '#graph',
-		info: '#infoContainer'
-	}
-});
-
 //set the model - this is one bike ride's data
 BikeDataManager.Bike = Backbone.Model.extend({
 	defaults: {
@@ -32,6 +21,43 @@ BikeDataManager.Bike = Backbone.Model.extend({
 //set the collection with the Bike model
 BikeDataManager.BikeCollection = Backbone.Collection.extend({
 	model: BikeDataManager.Bike
+});
+
+//set up page layouts. --- extends from ItemView.
+BikeDataManager.layout = Marionette.Layout.extend({
+	template: "#bike-layout",
+
+	regions: {
+		form: '#newBikeData',
+		graph: '#graph',
+		info: '#infoContainer'
+	},
+
+	events: {
+		'click #addData' : 'addBike'
+	},
+
+	addBike: function(e) {
+		e.preventDefault();
+
+		var formData = {};
+		console.log($('#addBikeInfo').find('input'))
+		$('#addBikeInfo').find('input').each(function(i, el) {
+
+			//iterate all of the input elements and set the formData if not empty			
+			if( $(el).val() !== "" ) {
+				formData[el.id] = $(el).val();
+			}
+		});
+
+		console.log(formData)
+		BikeDataManager.bikeData.push(formData);
+
+		console.log(BikeDataManager.bikeData)
+
+		BikeDataManager.bikesCollection.add(new BikeDataManager.Bike(formData));
+
+	}
 });
 
 //set the model's view. (the definition list)
@@ -72,9 +98,9 @@ BikeDataManager.addInitializer(function(){
 //show the views when the ajax call is finished!
 BikeDataManager.vent.on('data:fetched', function() {
 	
-	var bikes = new BikeDataManager.BikeCollection(BikeDataManager.bikeData);
+	BikeDataManager.bikesCollection = new BikeDataManager.BikeCollection(BikeDataManager.bikeData);
 	var bikesView = new BikeDataManager.BikesView({
-		collection: bikes //pass a collection to the BikesView -- which is a collection view.
+		collection: BikeDataManager.bikesCollection //pass a collection to the BikesView -- which is a collection view.
 	});
 
 	//show the main region of the app
