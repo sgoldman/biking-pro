@@ -21,7 +21,9 @@ BikeDataManager.Bike = Backbone.Model.extend({
 
 //set the collection with the Bike model
 BikeDataManager.BikeCollection = Backbone.Collection.extend({
-	model: BikeDataManager.Bike
+	model: BikeDataManager.Bike,
+
+	localStorage: new Backbone.LocalStorage('BikeCollection')
 });
 
 //set up page layouts. --- extends from ItemView.
@@ -52,6 +54,7 @@ BikeDataManager.layout = Marionette.Layout.extend({
 		});
 
 		if ( !jQuery.isEmptyObject(formData) ) {
+			var Bike;
 
 			//add a unique id to grab the detail view later.
 			formData['id'] = BikeDataManager.collectionLength;
@@ -61,7 +64,11 @@ BikeDataManager.layout = Marionette.Layout.extend({
 
 			console.log(BikeDataManager.bikeData)
 			//add the new data to the collection, instantiating a new model.
-			BikeDataManager.bikesCollection.add(new BikeDataManager.Bike(formData));
+			Bike = new BikeDataManager.Bike(formData);
+			BikeDataManager.bikesCollection.add(Bike);
+
+			//save the data
+			Bike.save();
 
 			BikeDataManager.collectionLength++;
 		}
@@ -122,6 +129,16 @@ BikeDataManager.addInitializer(function(){
 	BikeDataManager.bikeLayout = new BikeDataManager.layout();
 	BikeDataManager.bikeLayout.render();
 
+	//init the collection!
+	BikeDataManager.bikesCollection = new BikeDataManager.BikeCollection();
+
+	//fetch the data from local storage
+	BikeDataManager.bikesCollection.fetch();
+
+	if(BikeDataManager.bikesCollection.length === 0 ) {
+		console.log('no bikes!')
+	}
+
 	//fetch the data
 	$.ajax({
 		url: 'assets/data/bikeData.json'
@@ -146,6 +163,9 @@ BikeDataManager.vent.on('data:fetched', function() {
 
 	BikeDataManager.bikesCollection = new BikeDataManager.BikeCollection(BikeDataManager.bikeData);
 	BikeDataManager.collectionLength = BikeDataManager.bikesCollection.length;
+
+	BikeDataManager.bikesCollection.fetch();
+
 
 	console.log(BikeDataManager.bikesCollection)
 	var bikesListView = new BikeDataManager.BikesListView({
