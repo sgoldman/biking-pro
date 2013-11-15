@@ -32,8 +32,22 @@ h1 {
   margin-bottom: 10px;
 }
 
+/* line 29, ../sass/main.scss */
+.pure-form {
+  margin-bottom: 20px;
+}
 /* line 30, ../sass/main.scss */
 .pure-form input[type=date] {
   color: #777;
   width: 18.2%;
+}
+
+/* line 38, ../sass/main.scss */
+.pure-button-secondary {
+  background: #42b8dd;
+  /* this is a light blue */
+  border-radius: 4px;
+  color: white;
+  font-size: 85%;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
 }
