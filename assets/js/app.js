@@ -5,6 +5,17 @@ BikeDataManager.addRegions({
 	mainRegion: '#mainContent'
 });
 
+//set up page layouts.
+BikeDataManager.layout = Marionette.Layout.extend({
+	template: "#bike-layout",
+
+	regions: {
+		form: '#newBikeData',
+		graph: '#graph',
+		info: '#infoContainer'
+	}
+});
+
 //set the model - this is one bike ride's data
 BikeDataManager.Bike = Backbone.Model.extend({
 	defaults: {
@@ -41,6 +52,10 @@ BikeDataManager.BikesView = Marionette.CompositeView.extend({
 
 //initialize the page.
 BikeDataManager.addInitializer(function(){
+	//init the layout
+	BikeDataManager.bikeLayout = new BikeDataManager.layout();
+	BikeDataManager.bikeLayout.render();
+
 	//fetch the data
 	$.ajax({
 		url: 'assets/data/bikeData.json'
@@ -63,5 +78,8 @@ BikeDataManager.vent.on('data:fetched', function() {
 	});
 
 	//show the main region of the app
-	BikeDataManager.mainRegion.show(bikesView);
+	BikeDataManager.mainRegion.show(BikeDataManager.bikeLayout);
+
+	//show the data
+	BikeDataManager.bikeLayout.info.show(bikesView);
 });

@@ -15,48 +15,55 @@
 
 	<h1> Bike Tracker</h1>
 
-	<form id="addBikeInfo" action="" class="pure-form pure-form-aligned">
-		<div class="pure-control-group">
-			<label for="tDate"> Date: </label>
-			<input type="date" placeholder="Date" id="tDate" />
-		</div>
-
-		<div class="pure-control-group">		
-			<label for="tDistance"> Distance: </label>
-			<input type="text" placeholder="12.23" id="tDistance" />
-		</div>
-
-		<div class="pure-control-group">
-			<label for="tTime"> Time: </label>
-			<input type="text" placeholder="20:53" id="tTime" />
-		</div>
-
-		<div class="pure-control-group">
-			<label for="tAvgSpeed"> Average Speed: </label>
-			<input type="text" placeholder="12.15" id="tAvgSpeed" />
-		</div>
-
-		<div class="pure-control-group">
-			<label for="tMaxSpeed"> Max Speed: </label>
-			<input type="text" placeholder="24.23" id="tMaxSpeed" />
-		</div>
-
-		<div class="pure-control-group">
-			<label for="tAvgCadence"> Average Cadence </label>
-			<input type="text" placeholder="51" id="tAvgCadence" />
-		</div>
-
-		<div class="pure-control-group">
-			<label for="tLocation"> Location: </label>
-			<input type="text" placeholder="Custis" id="tLocation" />
-		</div>
-
-		<div class="pure-controls">
-			<button type="submit" class="pure-button pure-button-secondary"> Add Data </button>
-		</div>
-	</form>
-
 	<div id="mainContent"></div>
+
+	<script type="text/template" id="bike-layout">
+		<div id="newBikeData">
+			<form id="addBikeInfo" action="" class="pure-form pure-form-aligned">
+				<div class="pure-control-group">
+					<label for="tDate"> Date: </label>
+					<input type="date" placeholder="Date" id="tDate" />
+				</div>
+
+				<div class="pure-control-group">		
+					<label for="tDistance"> Distance: </label>
+					<input type="text" placeholder="12.23" id="tDistance" />
+				</div>
+
+				<div class="pure-control-group">
+					<label for="tTime"> Time: </label>
+					<input type="text" placeholder="20:53" id="tTime" />
+				</div>
+
+				<div class="pure-control-group">
+					<label for="tAvgSpeed"> Average Speed: </label>
+					<input type="text" placeholder="12.15" id="tAvgSpeed" />
+				</div>
+
+				<div class="pure-control-group">
+					<label for="tMaxSpeed"> Max Speed: </label>
+					<input type="text" placeholder="24.23" id="tMaxSpeed" />
+				</div>
+
+				<div class="pure-control-group">
+					<label for="tAvgCadence"> Average Cadence </label>
+					<input type="text" placeholder="51" id="tAvgCadence" />
+				</div>
+
+				<div class="pure-control-group">
+					<label for="tLocation"> Location: </label>
+					<input type="text" placeholder="Custis" id="tLocation" />
+				</div>
+
+				<div class="pure-controls">
+					<button type="submit" class="pure-button pure-button-secondary"> Add Data </button>
+				</div>
+			</form>
+		</div>
+		
+		<div id="graph">I will be a graph.</div>
+		<div id="infoContainer"></div>
+	</script>
 
 	<script type="text/template" id="rides-template">
 		<div class="ride-info"></div>
@@ -93,5 +100,6 @@
 			BikeDataManager.start();
 		});
     </script>
+
 </body>
 </html>
