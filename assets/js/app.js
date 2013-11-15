@@ -66,6 +66,11 @@ BikeDataManager.layout = Marionette.Layout.extend({
 BikeDataManager.BikeItemView = Marionette.ItemView.extend({
 	template: '#ride-template',
 	tagName: 'dl'
+// List of Bike Dates View
+BikeDataManager.BikeListView = Marionette.ItemView.extend({
+	template: '#single-line-template',
+	tagName: 'ul',
+	}
 });
 
 //set the collection's view.
@@ -76,6 +81,12 @@ BikeDataManager.BikesView = Marionette.CompositeView.extend({
 
 	//where to append the html
 	itemViewContainer: '.ride-info'
+//set the bike dates view
+BikeDataManager.BikesListView = Marionette.CompositeView.extend({
+	template: '#single-line-wrap-template',
+	itemView: BikeDataManager.BikeListView,
+
+	itemViewContainer: '#ridesListWrap'
 });
 
 //initialize the page.
@@ -100,14 +111,23 @@ BikeDataManager.addInitializer(function(){
 //show the views when the ajax call is finished!
 BikeDataManager.vent.on('data:fetched', function() {
 	
+	//full data view.
+	// BikeDataManager.bikesCollection = new BikeDataManager.BikeCollection(BikeDataManager.bikeData);
+	// var bikesView = new BikeDataManager.BikesView({
+	// 	collection: BikeDataManager.bikesCollection //pass a collection to the BikesView -- which is a collection view.
+	// });
+
 	BikeDataManager.bikesCollection = new BikeDataManager.BikeCollection(BikeDataManager.bikeData);
-	var bikesView = new BikeDataManager.BikesView({
+	console.log(BikeDataManager.bikesCollection)
+	var bikesListView = new BikeDataManager.BikesListView({
 		collection: BikeDataManager.bikesCollection //pass a collection to the BikesView -- which is a collection view.
 	});
-
+	console.log(BikeDataManager.bikesCollection)
 	//show the main region of the app
 	BikeDataManager.mainRegion.show(BikeDataManager.bikeLayout);
 
 	//show the data
-	BikeDataManager.bikeLayout.info.show(bikesView);
+	// BikeDataManager.bikeLayout.info.show(bikesListView);
+
+	BikeDataManager.bikeLayout.graph.show(bikesListView);
 });
